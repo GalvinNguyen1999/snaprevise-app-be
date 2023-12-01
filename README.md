@@ -45,8 +45,8 @@ To run this project, you will need to add the following environment variables to
 ```bash
 APP_PORT='8017'
 APP_HOST='localhost'
-GOOGLE_KEY='https://maps.googleapis.com/maps/api/place/nearbysearch/json'
-GOOGLE_URL=''
+GOOGLE_KEY=''
+GOOGLE_URL='https://maps.googleapis.com/maps/api/place/nearbysearch/json'
 BUILD_MODE='dev'
 JWT_SECRET='snaprevise'
 
