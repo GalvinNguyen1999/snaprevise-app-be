@@ -23,13 +23,13 @@ To install and run the project, you need:
 Clone the project
 
 ```bash
-  git clone https://github.com/GalvinNguyen1999/snaprevise-app.git
+  git clone https://github.com/GalvinNguyen1999/snaprevise-app-be.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd snaprevise-app
+  cd snaprevise-app-be
 ```
 
 Install dependencies
