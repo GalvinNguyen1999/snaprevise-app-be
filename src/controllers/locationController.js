@@ -1,9 +1,9 @@
 import { locationService } from '~/services/locationService'
 import { StatusCodes } from 'http-status-codes'
 
-const createLocation = async (req, res, next) => {
+const createLocationFromId = async (req, res, next) => {
   try {
-    const location = await locationService.createLocation(req.query)
+    const location = await locationService.createLocationFromId(req.query)
     return res.status(StatusCodes.CREATED).json(location)
   } catch (error) { next(error) }
 }
@@ -30,7 +30,7 @@ const deleteLocation = async (req, res, next) => {
 }
 
 export const locationController = {
-  createLocation,
+  createLocationFromId,
   getLoations,
   updateLocation,
   deleteLocation
