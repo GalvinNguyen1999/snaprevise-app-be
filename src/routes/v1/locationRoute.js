@@ -4,7 +4,7 @@ import { locationController } from '~/controllers/locationController'
 const ROUTE = express.Router()
 
 ROUTE.route('/submit-location')
-  .post(locationController.createLocation)
+  .post(locationController.createLocationFromId)
 
 ROUTE.route('/all-locations')
   .get(locationController.getLoations)

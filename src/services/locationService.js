@@ -17,13 +17,25 @@ const determineLocationType = (types) => {
   }
 }
 
-const fetchPlacesFromAPI = async (location, radius, types) => {
+const fetchPlacesFromRadius = async (location, radius, types) => {
   try {
-    return await instance.get('', {
+    return await instance.get('/place/nearbysearch/json', {
       params: {
         location,
         radius,
         types
+      }
+    })
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+const fetchPlacesFromId = async (id) => {
+  try {
+    return await instance.get('/place/details/json', {
+      params: {
+        place_id: id
       }
     })
   } catch (error) {
@@ -55,13 +67,37 @@ const processAndSavePlaces = async (location, places, radius) => {
   )
 }
 
-const createLocation = async (data) => {
+const createLocationFromId = async (data) => {
+  try {
+    const { placeId } = data
+    const response = await fetchPlacesFromId(placeId)
+
+    const { name, geometry, formatted_address: address, types } = response.data.result
+    const type = types[0]
+
+    const location = {
+      lat: geometry.location.lat,
+      lng: geometry.location.lng
+    }
+
+    const changeLocationToArray = Object.keys(location).map((key) => {
+      return location[key]
+    })
+
+    const area = calculateArea(changeLocationToArray, 20000)
+
+    const locationDetail = await locationModel.createLocation({ name, location, address, type, area })
+    return locationDetail
+  } catch (error) { throw new Error(error) }
+}
+
+const createLocationFromRadius = async (data) => {
   try {
     const { location } = data
     const types = 'hospital,school,park,supermarket'
     const radius = 20000 // 20km
 
-    const response = await fetchPlacesFromAPI(location, radius, types)
+    const response = await fetchPlacesFromRadius(location, radius, types)
     const places = response.data.results
 
     await processAndSavePlaces(location, places, radius)
@@ -92,8 +128,9 @@ const deleteLocation = async (id) => {
 }
 
 export const locationService = {
-  createLocation,
+  createLocationFromRadius,
   getLoations,
   updateLocation,
-  deleteLocation
+  deleteLocation,
+  createLocationFromId
 }
