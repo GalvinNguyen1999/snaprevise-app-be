@@ -4,10 +4,10 @@ import { locationController } from '~/controllers/locationController'
 const ROUTE = express.Router()
 
 ROUTE.route('/submit-location')
-  .post(locationController.createLocationFromId)
+  .post(locationController.createLocation)
 
 ROUTE.route('/all-locations')
-  .get(locationController.getLoations)
+  .get(locationController.getLocations)
 
 ROUTE.route('/update-location/:id')
   .put(locationController.updateLocation)

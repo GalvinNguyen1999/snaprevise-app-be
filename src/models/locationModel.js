@@ -38,7 +38,7 @@ const createLocation = async (data) => {
 }
 
 // get all non-soft deleted locations
-const getLoations = async () => {
+const getLocations = async () => {
   try {
     const locations = await GET_DB().locations.findAll()
     return locations
@@ -105,7 +105,7 @@ const declineLocation = async (id) => {
 export const locationModel = {
   locations,
   createLocation,
-  getLoations,
+  getLocations,
   updateLocation,
   deleteLocation,
   updateStatus,
