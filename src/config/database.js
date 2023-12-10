@@ -8,7 +8,7 @@ export const sequelize = new Sequelize(
   env.POSTGRESQL_USER,
   env.POSTGRESQL_PASSWORD,
   {
-    host: process.env.BUILD_MODE === 'development' ? 'localhost' : 'snaprevise_db',
+    host: process.env.APP_HOST,
     dialect: env.DIALECT
   }
 )
